@@ -51,7 +51,7 @@ img {
   }
   @media only screen and (min-width:77.5rem) {
     .brands__item {
-      height:2.5rem;
+      /* height:2.5rem; */
       width:auto
     }
     .brands__item img {
