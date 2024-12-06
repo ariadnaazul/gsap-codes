@@ -1,41 +1,51 @@
 gsap.registerPlugin(ScrollTrigger)
 
+// Appear Effect: Block Text
+const blockTexts = document.querySelectorAll('.block-text')
 
-const h1 = document.querySelector('h1')
+blockTexts.forEach(blockText => {
+    ScrollTrigger.create({
+        trigger: blockText,
+        start: '50% center',
+        onEnter: () => gsap.from(blockText, { yPercent: 100, opacity: 1, duration: .6, delay: -0.5 })
+    });
 
-gsap.from(h1, { yPercent: 100, opacity: 0, duration: .6, delay: .5 })
+});
 
-let allH2 = document.querySelectorAll('h2')
 
-console.log(allH2)
-allH2.forEach(h2 => {
-    let splitH2 = new SplitType(h2)
+// Appear Effect: Wave Text
+let waveTexts = document.querySelectorAll('.wave-text')
 
-    let chars = h2.querySelectorAll('.char')
+waveTexts.forEach(waveText => {
+    let splitText = new SplitType(waveText)
+
+    let chars = waveText.querySelectorAll('.char')
     gsap.set(chars, { yPercent: 100 })
 
     ScrollTrigger.create({
-        trigger: h2,
+        trigger: waveText,
         start: '20% center',
         onEnter: () => gsap.to(chars, { yPercent: 0, duration: .6, stagger: .006 })
     });
 });
 
-gsap.registerPlugin(ScrollTrigger);
 
+//Appear Effect: Listed Elements
 const listAppear = document.querySelectorAll('.list-appear');
 
 listAppear.forEach(section => {
-    gsap.fromTo(section.querySelectorAll('.card'), 
-        { opacity: 0, scale: 0.4 }, 
-        { opacity: 1, scale: 1, duration: 2, stagger: 0.2, ease: "elastic.out(1,1)", scrollTrigger: {
-            trigger: section,
-            start: '20% center'
-        }
-    });
+    gsap.fromTo(section.querySelectorAll('.card'),
+        { opacity: 0, scale: 0.4 },
+        {
+            opacity: 1, scale: 1, duration: 2, stagger: 0.2, ease: "elastic.out(1,1)", scrollTrigger: {
+                trigger: section,
+                start: '20% center'
+            }
+        });
 });
 
 
+//Appear Effect: Section down and up
 const sectionsToAppear = document.querySelectorAll('.appear-from-down')
 
 sectionsToAppear && sectionsToAppear.forEach((pregunta, index) => {
@@ -56,15 +66,43 @@ sectionsToAppear && sectionsToAppear.forEach((pregunta, index) => {
 });
 
 
-
+//Appear Effect: Expandable Element
 const expands = document.querySelectorAll('.expand');
 
 expands.forEach(expand => {
-    gsap.fromTo(expand, 
-        { opacity: 0, scale: 0.4 }, 
-        { opacity: 1, scale: 1, duration: 2, stagger: 0.2, ease: "elastic.out(1,1)", scrollTrigger: {
-            trigger: expand,
-            start: '20% center'
-        }
-    });
+    gsap.fromTo(expand,
+        { opacity: 0, scale: 0.4 },
+        {
+            opacity: 1, scale: 1, duration: 2, stagger: 0.2, ease: "elastic.out(1,1)", scrollTrigger: {
+                trigger: expand,
+                start: '20% center'
+            }
+        });
 });
+
+
+//Rotate Effect: Travel to Right
+const rotateBoxes = document.querySelectorAll('.rotate-box')
+
+rotateBoxes.forEach(box => {
+    ScrollTrigger.create({
+        trigger: box,
+        start: '20% center',
+        onEnter: () => gsap.to(box, { rotation: 360, x: 500, duration: 1 })
+    });
+
+});
+
+let nav = document.querySelector('.path')
+
+let tween = gsap.to(".travel-box", {
+  duration: 1, 
+  x: () => nav.offsetWidth, // animate by the px width of the nav
+  xPercent: -100, 
+  ease: "none", 
+  paused: true
+});
+
+// Controladores para los eventos de mouse
+document.querySelector(".travel-box-container").addEventListener('mouseenter', () => tween.play());
+document.querySelector(".travel-box-container").addEventListener('mouseleave', () => tween.reverse());

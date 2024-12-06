@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <link rel="stylesheet" href="main.css">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <main class="container">
+        <!--Titulo-->
+        <section>
+            <h1>GSAP</h1>
+            <p>GSAP tiene dos terminos claves, <a href="#Tween">Tween</a> y <a href="#Timeline">Timeline</a></p>
+        </section>
+        <!--Fin Titulo-->
+        <!--Tween-->
+        <section>
+
+            <h2 id="Tween" class="mt-40">Tween (Interpolación)</h2>
+            <p>GSAP tiene 3 métodos básicos para crear un Tween</p>
+            <ul>
+                <li>gsap.to()</li>
+                <li>gsap.from()</li>
+                <li>gsap.fromTo()</li>
+            </ul>
+            <pre>
+                <code>
+//Las propiedades de estos métodos son las mismas que utilizamos en animaciones CSS
+gsap.to(".box", { 
+    rotation: 360,
+    x: 100, duration: 1 //x es una abreviación de 'transform: translateX()'
+});
+                </code>
+            </pre>
+            <div id="box-rotate" class="box box0 gradient-green"></div>
+            <button class="btn-activate" id="box-rotate-btn">Activar Animación</button>
+
+        </section>
+        <!--Fin Tween-->
+
+        <!--Timeline-->
+        <section>
+            <h2 id="Timeline" class="mt-40">Timeline</h2>
+            <p>El Timeline es un contenedor para los Tweens y permite controlar la secuencia de animaciónes con metodos
+                como:</p>
+            <a href="https://gsap.com/docs/v3/GSAP/Timeline/pause()">pause()</a>
+            <a href="https://gsap.com/docs/v3/GSAP/Timeline/play()">play()</a>
+            <span>etc...</span><br><br>
+            <a href="https://gsap.com/docs/v3/GSAP/#controlling-tweens-and-timelines"><button class="ver-mas-btn">Ver
+                    más en
+                    GSAP</button></a>
+            <h3 class="mt-40">Metodo para crear un Timeline:</h3>
+            <a href="https://gsap.com/docs/v3/GSAP/gsap.timeline()">gsap.timeline()</a>
+            <pre>
+                <code>
+var tl = gsap.timeline();
+
+//sequenced one-after-the-other
+tl.to(".box1", { duration: 2, rotation: -360 })
+  .to(".box2", { duration: 1, x: -100, ease: 'elastic.out' })
+  .to(".box3", { duration: 2, rotation: 360, x: 100, ease: 'expo.out' });
+
+                </code>
+            </pre>
+
+
+            <div class="box box1 gradient-green"></div>
+            <div class="box box2 gradient-orange"></div>
+            <div class="box box3 gradient-purple"></div>
+            <button class="btn-activate" id="tl-btn">Activar Animación</button>
+            <h3 class="mt-40">Propiedades y métodos del Timeline</h3>
+            <h4 class="mt-40">Momento de ejecusión</h4>
+            <pre>
+                <code>
+tl.to(..., 1.5) //Comienza en el segundo 1.5.
+  .to(..., "-=1") //Comienza 1 segundo antes de que termine el tween anterior. 
+  .to(..., "+=1") //Comienza 1 segundo despúes de que termina el tween anterior.
+                </code>
+            </pre>
+            <h4 class="mt-40">Labels(etiquetas)</h4>
+            <pre>
+                <code>
+//Agrega un label llamado keyStep a los 3 segundos
+tl.addLabel("keyStep", 3)
+  .to(..., "keyStep") //Comienza a los 3 segundos en el marcador keyStep
+  .to(..., "keyStep+=0.75") //Comienza 0.75 despues del marcador keyStep
+
+//mueve la cabeza lectora de la línea de tiempo directamente a la posición marcada por la etiqueta "step2". Esto es útil si quieres reproducir la animación desde ese punto o hacer pruebas.
+tl.seek("keyStep");
+                </code>
+            </pre>
+            <h4>Propiedades y Callbacks del Timeline</h4>
+            <h5>autoRemoveChildren</h5>
+            <p>Elimina automáticamente las animaciones secundarias al terminar, mejorando la velocidad y uso de memoria.
+            </p>
+            <pre><code>gsap.timeline({ autoRemoveChildren: true });</code></pre>
+
+            <h5>callbackScope</h5>
+            <p>Define el objeto que se usa como <code>this</code> en las funciones de retorno.</p>
+            <pre><code>gsap.timeline({ callbackScope: this });</code></pre>
+
+            <h5>defaults</h5>
+            <p>Establece valores predeterminados para las animaciones secundarias.</p>
+            <pre><code>gsap.timeline({ defaults: { duration: 2 } });</code></pre>
+
+            <h5>delay</h5>
+            <p>Retrasa el inicio de la animación en segundos.</p>
+            <pre><code>gsap.to(".box", { x: 100, delay: 1 });</code></pre>
+
+            <h5>onComplete</h5>
+            <p>Función que se llama cuando la animación termina.</p>
+            <pre><code>gsap.to(".box", { onComplete: () => console.log("Done!") });</code></pre>
+
+            <h5>onCompleteParams</h5>
+            <p>Parámetros que se pasan a la función <code>onComplete</code>.</p>
+            <pre><code>gsap.to(".box", { 
+    onComplete: myFunction, 
+    onCompleteParams: ["param1", "param2"] 
+});</code></pre>
+
+            <h5>onInterrupt</h5>
+            <p>Función que se llama si la animación es interrumpida antes de completarse.</p>
+            <pre><code>gsap.to(".box", { 
+    x: 100, 
+    onInterrupt: () => console.log("Interrupted!") 
+});</code></pre>
+
+            <h5>onInterruptParams</h5>
+            <p>Parámetros que se pasan a la función <code>onInterrupt</code>.</p>
+            <pre><code>gsap.to(".box", { 
+    x: 100, 
+    onInterrupt: myFunction, 
+    onInterruptParams: ["param1", "param2"] 
+});</code></pre>
+
+            <h5>onRepeat</h5>
+            <p>Función que se llama cada vez que la animación se repite.</p>
+            <pre><code>gsap.timeline({ 
+    onRepeat: () => console.log("Repeat!") 
+});</code></pre>
+
+            <h5>onRepeatParams</h5>
+            <p>Parámetros que se pasan a la función <code>onRepeat</code>.</p>
+            <pre><code>gsap.timeline({ 
+    onRepeat: myFunction, 
+    onRepeatParams: ["param1", "param2"] 
+});</code></pre>
+
+            <h5>onReverseComplete</h5>
+            <p>Función que se llama cuando la animación llega de nuevo al inicio tras invertirse.</p>
+            <pre><code>gsap.timeline({ 
+    onReverseComplete: () => console.log("Reversed!") 
+});</code></pre>
+
+            <h5>onReverseCompleteParams</h5>
+            <p>Parámetros que se pasan a la función <code>onReverseComplete</code>.</p>
+            <pre><code>gsap.timeline({ 
+    onReverseComplete: myFunction, 
+    onReverseCompleteParams: ["param1", "param2"] 
+});</code></pre>
+
+            <h5>onStart</h5>
+            <p>Función que se llama cuando la animación comienza.</p>
+            <pre><code>gsap.timeline({ 
+    onStart: () => console.log("Animation started!") 
+});</code></pre>
+
+            <h5>onStartParams</h5>
+            <p>Parámetros que se pasan a la función <code>onStart</code>.</p>
+            <pre><code>gsap.timeline({ 
+    onStart: myFunction, 
+    onStartParams: ["param1", "param2"] 
+});</code></pre>
+
+            <h5>onUpdate</h5>
+            <p>Función que se llama cada vez que la animación se actualiza (en cada frame mientras la animación está
+                activa).</p>
+            <pre><code>gsap.timeline({ 
+    onUpdate: () => console.log("Updating...") 
+});</code></pre>
+
+            <h5>onUpdateParams</h5>
+            <p>Parámetros que se pasan a la función <code>onUpdate</code>.</p>
+            <pre><code>gsap.timeline({ 
+    onUpdate: myFunction, 
+    onUpdateParams: ["param1", "param2"] 
+});</code></pre>
+
+            <h5>paused</h5>
+            <p>Si es <code>true</code>, la animación se pausará inmediatamente al ser creada.</p>
+            <pre><code>gsap.timeline({ paused: true });</code></pre>
+
+            <h5>repeat</h5>
+            <p>Número de veces que la animación debe repetirse después de la primera ejecución.</p>
+            <pre><code>gsap.to(".box", { x: 100, repeat: 2 });</code></pre>
+
+            <h5>repeatDelay</h5>
+            <p>Tiempo en segundos entre repeticiones.</p>
+            <pre><code>gsap.to(".box", { x: 100, repeat: 2, repeatDelay: 1 });</code></pre>
+
+            <h5>repeatRefresh</h5>
+            <p>Si es <code>true</code>, actualiza los valores de las animaciones en cada repetición.</p>
+            <pre><code>gsap.to(".box", { 
+    x: "random(-100, 100)", 
+    repeat: 3, 
+    repeatRefresh: true 
+});</code></pre>
+
+            <h5>smoothChildTiming</h5>
+            <p>Controla si las animaciones secundarias son reposicionadas automáticamente para mantener una reproducción
+                suave.</p>
+            <pre><code>gsap.timeline({ smoothChildTiming: true });</code></pre>
+
+            <h5>yoyo</h5>
+            <p>Si es <code>true</code>, cada ciclo de repetición se ejecutará en la dirección opuesta.</p>
+            <pre><code>gsap.to(".box", { 
+    x: 100, 
+    repeat: 2, 
+    yoyo: true 
+});</code></pre>
+            <h2>Métodos y propiedades para Tween y Timeline</h2>
+            <ul>
+                <li><a href="https://gsap.com/docs/v3/GSAP/Tween/pause()">pause()</a></li>
+                <li><a href="https://gsap.com/docs/v3/GSAP/Tween/play()">play()</a></li>
+                <li><a href="https://gsap.com/docs/v3/GSAP/Tween/progress()">progress()</a></li>
+                <li><a href="https://gsap.com/docs/v3/GSAP/Tween/restart()">restart()</a></li>
+                <li><a href="https://gsap.com/docs/v3/GSAP/Tween/resume()">resume()</a></li>
+                <li><a href="https://gsap.com/docs/v3/GSAP/Tween/reverse()">reverse()</a></li>
+                <li><a href="https://gsap.com/docs/v3/GSAP/Tween/seek()">seek()</a></li>
+                <li><a href="https://gsap.com/docs/v3/GSAP/Tween/time()">time()</a></li>
+                <li><a href="https://gsap.com/docs/v3/GSAP/Tween/duration()">duration()</a></li>
+                <li><a href="https://gsap.com/docs/v3/GSAP/Tween/timeScale()">timeScale()</a></li>
+                <li><a href="https://gsap.com/docs/v3/GSAP/Tween/kill()">kill()</a></li>
+            </ul>
+
+
+
+        </section>
+        <!--Fin Timeline-->
+        <section>
+            <h1>Plugins de GSAP</h1>
+            <a class="inner-link" href="./scroll-triggger.html">ScrollTrigger</a>
+        </section>
+
+
+
+    </main>
+</body>
+
+<script>
+    //Tween
+    const boxRotateBtn = document.querySelector("#box-rotate-btn");
+    boxRotateBtn.addEventListener("click", function () {
+        gsap.to(".box0", {
+            rotation: 360,
+            x: 400, duration: 1 //x es una abreviación de 'transform: translateX()'
+        });
+    });
+
+    //Timeline
+    const tlBtn = document.querySelector("#tl-btn");
+
+    tlBtn.addEventListener("click", function () {
+        var tl = gsap.timeline();
+
+        //sequenced one-after-the-other
+
+        tl.to(".box1", { duration: 2, rotation: -360 })
+            .to(".box2", { duration: 1, x: -100, ease: 'elastic.out' })
+            .to(".box3", { duration: 2, rotation: 360, x: 100, ease: 'expo.out' });
+    });
+
+
+</script>
+
+</html>

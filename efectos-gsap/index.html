@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,58 +11,95 @@
             margin: 0;
             padding: 0;
         }
+
         section {
             padding: 50px;
             margin: 50px 0;
         }
-        h1, h2 {
+
+        h1,
+        h2 {
             margin: 20px 0;
         }
+
         li {
             list-style: none;
         }
+
         img {
             width: 100px;
             height: 100px;
             display: block;
         }
+
         .contacto-icons img {
             width: 50px;
             height: 50px;
         }
+
         .evento-card {
             background: #eee;
             margin: 10px 0;
             padding: 20px;
             border: 1px solid #ccc;
         }
-        h2 .line{
+
+        h2 .line {
             overflow: hidden;
         }
-        .img-container{
+
+        .img-container {
             display: flex;
             justify-content: space-around;
             align-items: center;
         }
-        .img-column{
+
+        .img-column {
             display: flex;
-            gap:20px;
+            gap: 20px;
             flex-direction: column;
         }
+
+        .rotate-box {
+            width: 100px;
+            height: 100px;
+            background: #f00;
+        }
+
+        .path {
+            width: 100%;
+            height: 10px;
+            background-color: black;
+            margin-top: -55px;
+            z-index: -1;
+
+        }
+
+   
+        .travel-box{
+            width: 100px;
+            height: 100px;
+            background-color: #f00;
+            z-index: 1;
+        }
+
     </style>
 </head>
+
 <body>
 
     <section>
-        <h1>Welcome to GSAP Animations</h1>
+        <h1 class="block-text">Welcome to GSAP Animations</h1>
     </section>
 
     <section>
-        <h2>Heading 2 - First</h2>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit eum veniam tempora saepe neque ab provident, praesentium amet ad? Eligendi nobis nemo est rerum impedit totam suscipit ullam ad cupiditate.</p>
+        <h2 class="wave-text">Heading 2 - First</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit eum veniam tempora saepe neque ab provident,
+            praesentium amet ad? Eligendi nobis nemo est rerum impedit totam suscipit ullam ad cupiditate.</p>
         <br><br>
-        <h2>Heading 2 - Second</h2>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis laboriosam, tenetur blanditiis amet dolorem ducimus vel harum aperiam deleniti obcaecati autem maiores excepturi! Amet, ad?</p>
+        <h2 class="wave-text">Heading 2 - Second</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis laboriosam, tenetur blanditiis amet
+            dolorem ducimus vel harum aperiam deleniti obcaecati autem maiores excepturi! Amet, ad?</p>
     </section>
 
     <section class="list-appear">
@@ -74,7 +112,10 @@
 
     <section>
         <div class="appear-from-down">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae consectetur, neque corporis ipsam aspernatur ratione est saepe ab, numquam recusandae laborum optio delectus harum! Non dignissimos quis itaque voluptas repellendus a impedit magni nihil expedita nobis est totam magnam placeat voluptatum qui, possimus commodi laborum soluta.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae consectetur, neque corporis ipsam
+                aspernatur ratione est saepe ab, numquam recusandae laborum optio delectus harum! Non dignissimos quis
+                itaque voluptas repellendus a impedit magni nihil expedita nobis est totam magnam placeat voluptatum
+                qui, possimus commodi laborum soluta.</p>
         </div>
     </section>
 
@@ -89,7 +130,24 @@
             <li><img class="card" src="https://via.placeholder.com/100" alt="Placeholder Image"></li>
         </ul>
     </section>
-    
+
+
+    <section>
+        <div style="width:100vw">
+            <div class="rotate-box"></div>
+        </div>
+    </section>
+
+    <section>
+
+        <div class="container" style="width: 100%;">
+            <div class="travel-box-container" style="width:100%">
+                <div class="travel-box"></div>
+                <div class="path"></div>
+            </div>
+        </div>
+
+    </section>
 
     <section style="height: 100vh;"></section>
 
@@ -98,4 +156,5 @@
     <script src="https://unpkg.com/split-type"></script>
     <script src="./gsap.js"></script>
 </body>
+
 </html>
